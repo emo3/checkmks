@@ -1,6 +1,6 @@
-# test CHANGELOG
+# checkmk CHANGELOG
 
-This file is used to list changes made in each version of the test cookbook.
+This file is used to list changes made in each version of the checkmk cookbook.
 
 # 0.1.0
 

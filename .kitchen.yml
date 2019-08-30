@@ -1,33 +1,21 @@
 ---
 driver:
   name: vagrant
-  vm_hostname: test1
+  vm_hostname: chefsrv
   customize:
-    name: test1
-    createhd:
-      - filename: ~/disk1.vmdk
-        size: 1024
-    storagectl:
-      - name: SATA Controller
-        portcount: 1
-    storageattach:
-      - storagectl: SATA Controller
-        port: 1
-        device: 0
-        type: hdd
-        medium: ~/disk1.vmdk
+    memory: <%= ENV['CHEF_RAM'] %>
+    cpus: <%= ENV['CHEF_CPU'] %>
+    name: chefsrv
   network:
-   - ['private_network', ip: 10.1.1.51]
+   - ['private_network', ip: '10.1.1.101']
 
 provisioner:
   name: chef_zero
   product_name: chef
   product_version: <%= ENV['chef_release'] %>
   install_strategy: always
-  # You may wish to disable always updating cookbooks in CI or other testing environments.
-  # For example:
-  #   always_update_cookbooks: <%= !ENV['CI'] %>
-  # always_update_cookbooks: true
+  deprecations_as_errors: true
+  chef_license: accept-no-persist
 
 verifier:
   name: inspec
@@ -38,9 +26,9 @@ platforms:
       download_url: http://10.1.1.30/media/chef-<%= ENV['chef_release'] %>-1.el7.x86_64.rpm
 
 suites:
-  - name: My_Test
+  - name: checkmk
     run_list:
-      - recipe[test::default]
+      - recipe[checkmk::default]
     verifier:
       inspec_tests:
         - test/integration/default
