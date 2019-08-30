@@ -1,11 +1,11 @@
 ---
 driver:
   name: vagrant
-  vm_hostname: chefsrv
+  vm_hostname: checkmk
   customize:
     memory: <%= ENV['CHEF_RAM'] %>
     cpus: <%= ENV['CHEF_CPU'] %>
-    name: chefsrv
+    name: checkmk
   network:
    - ['private_network', ip: '10.1.1.101']
 
@@ -13,7 +13,6 @@ provisioner:
   name: chef_zero
   product_name: chef
   product_version: <%= ENV['chef_release'] %>
-  install_strategy: always
   deprecations_as_errors: true
   chef_license: accept-no-persist
 
