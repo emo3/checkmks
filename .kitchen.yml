@@ -1,13 +1,6 @@
 ---
 driver:
   name: vagrant
-  vm_hostname: checkmk
-  customize:
-    memory: <%= ENV['CHEF_RAM'] %>
-    cpus: <%= ENV['CHEF_CPU'] %>
-    name: checkmk
-  network:
-   - ['private_network', ip: '10.1.1.101']
 
 provisioner:
   name: chef_zero
@@ -15,19 +8,42 @@ provisioner:
   product_version: <%= ENV['chef_release'] %>
   deprecations_as_errors: true
   chef_license: accept-no-persist
+  download_url: http://10.1.1.30/media/chef-<%= ENV['chef_release'] %>-1.el7.x86_64.rpm
 
 verifier:
   name: inspec
 
 platforms:
-  - name: mycentos7
-    provisioner:
-      download_url: http://10.1.1.30/media/chef-<%= ENV['chef_release'] %>-1.el7.x86_64.rpm
+- name: mycentos7
 
 suites:
-  - name: checkmk
+  - name: checkmks
+    driver:
+      vm_hostname: checkmks
+      network:
+      - ["private_network", {ip: "10.1.1.101"}]
+      customize:
+        memory: <%= ENV['OSR'] %>
+        cpus: <%= ENV['OSC'] %>
+        name: checkmks
     run_list:
-      - recipe[checkmk::default]
+      - recipe[checkmk::server]
+    verifier:
+      inspec_tests:
+        - test/integration/default
+    attributes:
+
+  - name: checkmka
+    driver:
+      vm_hostname: checkmka
+      network:
+      - ["private_network", {ip: "10.1.1.102"}]
+      customize:
+        memory: <%= ENV['OSR'] %>
+        cpus: <%= ENV['OSC'] %>
+        name: checkmka
+    run_list:
+      - recipe[checkmk::agent]
     verifier:
       inspec_tests:
         - test/integration/default
