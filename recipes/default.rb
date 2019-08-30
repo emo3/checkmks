@@ -15,18 +15,21 @@ execute 'install checkmk' do
   not_if { File.exist?('/opt/omd/sites') }
 end
 
-# execute 'create_sandbox' do
-#   command 'omd create sandbox'
-#   not_if { File.exist?('/opt/omd/sites/sandbox') }
-# end
-#
-# execute 'start sandbox' do
-#   command 'omd start snadbox'
-#   not_if ('ps -f | grep -v grep | grep sandbox')
-#   returns [0, 1, 2]
-# end
-#
-# execute 'change passwd' do
-#   command "su - sandbox -c 'htpasswd -m ~/etc/htpasswd cmkadmin -b cmkadmin'"
-#   command '/usr/sbin/setsebool -P httpd_can_network_connect=1​'
-# end
+execute 'create_sandbox' do
+  command 'omd create sandbox'
+  not_if { File.exist?('/opt/omd/sites/sandbox') }
+end
+
+execute 'start sandbox' do
+  command 'omd start sandbox'
+  not_if ('ps -f | grep -v grep | grep sandbox')
+  returns [0, 1, 2]
+end
+
+execute 'change passwd' do
+  command "su - sandbox -c 'htpasswd -m ~/etc/htpasswd cmkadmin -b cmkadmin'"
+end
+
+execute 'fix for selinux' do
+  command '/usr/sbin/setsebool -P httpd_can_network_connect=1​'
+end
