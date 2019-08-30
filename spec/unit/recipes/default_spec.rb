@@ -20,11 +20,11 @@ describe 'test::default' do
     end
   end
 
-  context 'When all attributes are default, on CentOS 7.4.1708' do
+  context 'When all attributes are default, on CentOS 7.x' do
     let(:chef_run) do
       # for a complete list of available platforms and versions see:
       # https://github.com/customink/fauxhai/blob/master/PLATFORMS.md
-      runner = ChefSpec::ServerRunner.new(platform: 'centos', version: '7.4.1708')
+      runner = ChefSpec::ServerRunner.new(platform: 'centos', version: '7')
       runner.converge(described_recipe)
     end
 
