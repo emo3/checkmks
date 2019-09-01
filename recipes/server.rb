@@ -3,20 +3,23 @@
 # Recipe:: default
 #
 # Copyright:: 2019, Ed Overton, Apache 2.0
-package %w(xinetd openssl python)
+# package %w(xinetd openssl python)
 
-epel_local_repo 'my epel'
+epel_local_repo 'my epel' do
+  not_if { File.exist?('/etc/yum.repo.d/epel7.repo') }
+end
 
-# execute 'get checkmk' do
-#   command 'wget https://checkmk.com/support/1.5.0p21/check-mk-raw-1.5.0p21-el7-38.x86_64.rpm'
-#   not_if { File.exist?('/check-mk-raw-1.5.0p21-el7-38.x86_64.rpm') }
-# end
-#
-# execute 'install checkmk' do
-#   command 'yum -y install check-mk-raw-1.5.0p21-el7-38.x86_64.rpm'
-#   not_if { File.exist?('/opt/omd/sites') }
-# end
-#
+# Download the check_mk raw server package file
+remote_file "#{Chef::Config[:file_cache_path]}/#{node['cmk']['server_rpm']}" do
+  source "#{node['cmk']['media_url']}/#{node['cmk']['server_rpm']}"
+  mode '0444'
+  action :create
+end
+
+package node['cmk']['server_rpm'] do
+ source "#{Chef::Config[:file_cache_path]}/#{node['cmk']['server_rpm']}"
+end
+
 # execute 'create_sandbox' do
 #   command 'omd create sandbox'
 #   not_if { File.exist?('/opt/omd/sites/sandbox') }
