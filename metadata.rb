@@ -9,3 +9,5 @@ chef_version '>= 14.0' if respond_to?(:chef_version)
 
 supports 'redhat'
 supports 'centos'
+
+depends 'server_utils', '~> 0.1'

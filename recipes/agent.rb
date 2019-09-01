@@ -3,7 +3,7 @@
 # Recipe:: default
 #
 # Copyright:: 2019, Ed Overton, Apache 2.0
-package %w(xinetd openssl python epel-release)
+package %w(xinetd openssl python)
 
 execute 'get checkmk agent' do
   command 'wget http://mathias-kettner.de/download/check_mk-agent-1.2.4p3-1.noarch.rpm'
