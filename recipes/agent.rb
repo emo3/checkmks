@@ -3,35 +3,27 @@
 # Recipe:: default
 #
 # Copyright:: 2019, Ed Overton, Apache 2.0
-package %w(xinetd openssl python)
+epel_local_repo 'check_mk-agent'
+package 'xinetd'
 
-execute 'get checkmk agent' do
-  command 'wget http://mathias-kettner.de/download/check_mk-agent-1.2.4p3-1.noarch.rpm'
-  # not_if { File.exist?('/check-mk-raw-1.5.0p21-el7-38.x86_64.rpm') }
+package 'check-mk-agent' do
+  source 'http://10.1.1.101/sandbox/check_mk/agents/check-mk-agent-1.5.0p21-1.noarch.rpm'
+  action :install
 end
 
-execute 'install checkmk agent' do
-  command 'yum -y install check-mk-raw-1.5.0p21-el7-38.x86_64.rpm'
-  not_if { File.exist?('/opt/omd/sites') }
+ruby_block 'insert_line' do
+  block do
+    file = Chef::Util::FileEdit.new("/etc/hosts.allow")
+    file.insert_line_if_no_match("/#{node['cmk']['server_ip']}/", "check_mk_agent : #{node['cmk']['server_ip']}")
+    file.write_file
+  end
 end
 
-execute 'create_sandbox' do
-  command 'omd create sandbox'
-  not_if { File.exist?('/opt/omd/sites/sandbox') }
-end
-
-execute 'start sandbox' do
-  command 'omd start sandbox'
-  not_if ('ps -eaf | grep -v grep | grep sandbox')
-  returns [0, 1, 2]
-end
-
-execute 'change passwd' do
-  command "su - sandbox -c 'htpasswd -b -m ~/etc/htpasswd cmkadmin cmkadmin'"
-  # returns [0, 1, 2]
-end
-
-execute 'fix for selinux' do
-  command '/usr/sbin/setsebool -P httpd_can_network_connect=1'
-  # returns [0, 1, 2]
+template '/etc/xinetd.d/check-mk-agent' do
+  source 'check-mk-agent'
+  variables(
+    ip_mk_server: node['cmk']['server_ip']
+  )
+  mode 0644
+  action :create
 end
