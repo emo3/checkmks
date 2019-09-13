@@ -4,12 +4,7 @@
 #
 # Copyright:: 2019, Ed Overton, Apache 2.0
 epel_local_repo 'check_mk-agent'
-package 'xinetd'
-
-package 'check-mk-agent' do
-  source 'http://10.1.1.101/sandbox/check_mk/agents/check-mk-agent-1.5.0p21-1.noarch.rpm'
-  action :install
-end
+package %w(xinetd check-mk-agent)
 
 ruby_block 'insert_line' do
   block do
