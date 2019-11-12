@@ -19,13 +19,13 @@ platforms:
 suites:
   - name: checkmks
     driver:
-      vm_hostname: checkmks
+      vm_hostname: <%= ENV['CMK_NAME'] %>
       network:
-      - ["private_network", {ip: "10.1.1.101"}]
+      - ["private_network", {ip: "<%= ENV['CMK_IP'] %>"}]
       customize:
-        memory: <%= ENV['OSR'] %>
-        cpus: <%= ENV['OSC'] %>
-        name: checkmks
+        memory: <%= ENV['CMK_RAM'] %>
+        cpus: <%= ENV['CMK_CPU'] %>
+        name: <%= ENV['CMK_NAME'] %>
     run_list:
       - recipe[checkmk::server]
     verifier:
@@ -39,8 +39,8 @@ suites:
       network:
       - ["private_network", {ip: "10.1.1.102"}]
       customize:
-        memory: <%= ENV['OSR'] %>
-        cpus: <%= ENV['OSC'] %>
+        memory: <%= ENV['WEB_RAM'] %>
+        cpus: <%= ENV['CMK_CPU'] %>
         name: checkmka
     run_list:
       - recipe[checkmk::agent]

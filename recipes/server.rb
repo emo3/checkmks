@@ -5,6 +5,7 @@
 # Copyright:: 2019, Ed Overton, Apache 2.0
 # package %w(xinetd openssl python)
 
+set_hostname 'chefsrv'
 epel_local_repo 'checkmk'
 
 # Download the check_mk raw server package file
