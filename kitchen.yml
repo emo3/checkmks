@@ -32,6 +32,7 @@ suites:
       inspec_tests:
         - test/integration/default
     attributes:
+      node['cmk']['server_ip'] = "<%= ENV['CMK_IP'] %>"
 
   - name: checkmka
     driver:
@@ -48,3 +49,4 @@ suites:
       inspec_tests:
         - test/integration/default
     attributes:
+      node['cmk']['server_ip'] = "<%= ENV['CMK_IP'] %>"
