@@ -43,4 +43,11 @@ execute 'automation-key' do
   command 'cat /opt/omd/sites/cmk/var/check_mk/web/automation/automation.secret'
   live_stream true
   action :run
+  notifies :run, 'execute[not_first_time]', :immediately
+  not_if { File.exist?("/opt/omd/sites/#{node['cmk']['instance_name']}/NOTFIRST") }
+end
+
+execute 'not_first_time' do
+  command "touch /opt/omd/sites/#{node['cmk']['instance_name']}/NOTFIRST"
+  action :nothing
 end
