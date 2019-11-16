@@ -5,7 +5,7 @@
 
 require 'spec_helper'
 
-describe 'checkmk::default' do
+describe 'checkmk::agent-cmk' do
   context 'When all attributes are default, on an Redhat 7.x' do
     let(:chef_run) do
       # for a complete list of available platforms and versions see:

@@ -29,23 +29,18 @@ execute "create_#{node['cmk']['instance_name']}" do
   not_if { File.exist?("/opt/omd/sites/#{node['cmk']['instance_name']}") }
 end
 
-## TODO
-# service "apache" do
-#   supports :status => true, :restart => true, :start => true
-#   action [ :start ]
-# end
-
 execute "start_#{node['cmk']['instance_name']}" do
   command "omd start #{node['cmk']['instance_name']}"
   not_if ("ps -eaf | grep -v grep | grep #{node['cmk']['instance_name']}")
 end
 
-# execute 'change passwd' do
-#   command "su - sandbox -c 'htpasswd -b -m ~/etc/htpasswd cmkadmin cmkadmin'"
-#   # returns [0, 1, 2]
-# end
-
 execute 'fix for selinux' do
   command '/usr/sbin/setsebool -P httpd_can_network_connect=1'
   only_if ('/usr/sbin/getsebool httpd_can_network_connect | grep off')
+end
+
+execute 'automation-key' do
+  command 'cat /opt/omd/sites/cmk/var/check_mk/web/automation/automation.secret'
+  live_stream true
+  action :run
 end
