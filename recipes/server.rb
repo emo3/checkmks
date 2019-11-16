@@ -6,6 +6,10 @@
 # package %w(xinetd openssl python)
 
 set_hostname 'chefsrv'
+set_hostname 'websrv' do
+  host_ip '10.1.1.30'
+  host_name 'websrv'
+end
 epel_local_repo 'checkmk'
 
 # Download the check_mk raw server package file
