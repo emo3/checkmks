@@ -44,7 +44,7 @@ suites:
         cpus: <%= ENV['CMK_CPU'] %>
         name: checkmka
     run_list:
-      - recipe[checkmk::agent]
+      - recipe[checkmk::agent-cmk]
     verifier:
       inspec_tests:
         - test/integration/default
