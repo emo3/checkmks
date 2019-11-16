@@ -1,6 +1,6 @@
 #
 # Cookbook:: checkmk
-# Recipe:: default
+# Recipe:: agent
 #
 # Copyright:: 2019, Ed Overton, Apache 2.0
 epel_local_repo 'check_mk-agent'
