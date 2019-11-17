@@ -5,7 +5,10 @@
 # Copyright:: 2019, Ed Overton, Apache 2.0
 
 execute 'get_all_hosts' do
-  command "curl #{node['cmk']['api_url']}?action=get_all_hosts&#{node['cmk']['api_login']}"
+  command "curl \"#{node['cmk']['api_url']}?action=get_all_hosts&#{node['cmk']['api_login']}\""
+  sensitive true
+  live_stream true
+  action :run
 end
 
 # Creating a host:<br>
