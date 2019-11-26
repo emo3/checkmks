@@ -9,7 +9,8 @@ default['cmk'].tap do |cmk|
   cmk['admin_passwd'] = 'cmkadmin'
   cmk['server_ip'] = node['server_ip']
   cmk['api_url'] = "http://#{cmk['server_name']}/#{cmk['instance_name']}/check_mk/webapi.py"
-  cmk['api_key'] = '57b67fde-3022-4b5d-b58a-0b8364b6faa5'
+  cmk['api_key'] = 'f4aa6f9a-11fc-4076-a840-7f1653ea425d'
   cmk['api_user'] = 'automation'
   cmk['api_login'] = "_username=#{cmk['api_user']}&_secret=#{cmk['api_key']}"
+  cmk['code'] = '0'
 end
