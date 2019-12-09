@@ -44,8 +44,8 @@ execute 'automation-key' do
   live_stream true
   action :run
   notifies :run, 'execute[not_first_time]', :immediately
-  not_if { File.exist?("/opt/omd/sites/#{node['cmk']['instance_name']}/NOTFIRST") }
-  only_if lazy { File.exist?('/opt/omd/sites/cmk/var/check_mk/web/automation/automation.secret') }
+  not_if  { File.exist?("/opt/omd/sites/#{node['cmk']['instance_name']}/NOTFIRST") }
+  only_if { File.exist?('/opt/omd/sites/cmk/var/check_mk/web/automation/automation.secret') }
 end
 
 execute 'not_first_time' do

@@ -6,6 +6,7 @@ provisioner:
   name: chef_zero
   product_name: chef
   product_version: <%= ENV['chef_release'] %>
+  download_url: http://10.1.1.30/media/chef-<%= ENV['chef_release'] %>-1.el7.x86_64.rpm
   install_strategy: once
   deprecations_as_errors: true
   chef_license: accept-no-persist
@@ -15,8 +16,6 @@ verifier:
 
 platforms:
 - name: mycentos7
-    provisioner:
-      download_url: http://10.1.1.30/media/chef-<%= ENV['chef_release'] %>-1.el7.x86_64.rpm
 
 suites:
   - name: checkmks
