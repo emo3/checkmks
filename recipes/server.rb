@@ -40,11 +40,12 @@ execute 'fix for selinux' do
 end
 
 execute 'automation-key' do
-  command 'cat /opt/omd/sites/cmk/var/check_mk/web/automation/automation.secret'
+  command lazy { 'cat /opt/omd/sites/cmk/var/check_mk/web/automation/automation.secret' }
   live_stream true
   action :run
   notifies :run, 'execute[not_first_time]', :immediately
   not_if { File.exist?("/opt/omd/sites/#{node['cmk']['instance_name']}/NOTFIRST") }
+  only_if lazy { File.exist?('/opt/omd/sites/cmk/var/check_mk/web/automation/automation.secret') }
 end
 
 execute 'not_first_time' do
