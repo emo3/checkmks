@@ -13,15 +13,16 @@ uri = URI.parse("#{node['cmk']['api_url']}?action=get_host&#{node['cmk']['api_lo
 #uri = URI.parse("#{node['cmk']['api_url']}?action=get_all_hosts&#{node['cmk']['api_login']}")
 request = Net::HTTP::Post.new(uri)
 #form_data = URI.x-www-form-urlencoded({
-form_data = URI.encode_www_form({
-  :hostname => ahost_name,
-  :folder   => "",
-  "attributes" => {
-    :ipaddress => ahost_ip,
-    :site      => "cmk",
-    :tag_agent => "cmk-agent"
+aform = {
+  'hostname' : 'checkmks',
+  'folder' : '',
+  'attributes' : {
+    'ipaddress' : '10.1.1.20',
+    'site' : 'cmk',
+    'tag_agent' : 'cmk-agent'
   }
-})
+}
+form_data = URI.encode_www_form(aform)
 request.body = form_data
 puts request.body
 req_options = {

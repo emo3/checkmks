@@ -29,7 +29,7 @@ suites:
         name: <%= ENV['CMK_NAME'] %>
     run_list:
       - recipe[checkmk::server]
-#      - recipe[checkmk::add_host]
+      - recipe[checkmk::add_host]
     verifier:
       inspec_tests:
         - test/integration/default

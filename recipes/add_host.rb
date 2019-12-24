@@ -8,8 +8,9 @@ require 'uri'
 
 ahost_name = 'checkmks'
 ahost_ip   = '10.1.1.20'
-
-uri = URI.parse("#{node['cmk']['api_url']}?action=get_host&#{node['cmk']['api_login']}")
+cmd = "#{node['cmk']['api_url']}?action=get_host&#{node['cmk']['api_login']}"
+puts "cmd=[#{cmd}]"
+uri = URI.parse(cmd)
 #uri = URI.parse("#{node['cmk']['api_url']}?action=get_all_hosts&#{node['cmk']['api_login']}")
 request = Net::HTTP::Post.new(uri)
 form_data = URI.encode_www_form({:hostname => ahost_name})
@@ -25,7 +26,7 @@ if response.is_a?(Net::HTTPSuccess)
   puts data
   node.normal['cmk']['code'] = data['result_code']
   if data['result_code'] == 1
-    puts "NOT FOUND "
+    puts "NOT FOUND host[#{ahost_name}]"
   else
     puts "FOUND"
   end
