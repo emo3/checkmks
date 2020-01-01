@@ -27,9 +27,9 @@ suites:
         memory: <%= ENV['CMK_RAM'] %>
         cpus: <%= ENV['CMK_CPU'] %>
         name: <%= ENV['CMK_NAME'] %>
-    run_list:
-      - recipe[checkmk::server]
-      - recipe[checkmk::add_host]
+    # run_list:
+    #   - recipe[checkmk::server]
+    #   - recipe[checkmk::add_host]
     verifier:
       inspec_tests:
         - test/integration/default
