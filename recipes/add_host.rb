@@ -13,7 +13,8 @@ puts "cmd=[#{cmd}]"
 uri = URI.parse(cmd)
 #uri = URI.parse("#{node['cmk']['api_url']}?action=get_all_hosts&#{node['cmk']['api_login']}")
 request = Net::HTTP::Post.new(uri)
-form_data = URI.encode_www_form({:hostname => ahost_name})
+aform = {:hostname => ahost_name}
+form_data = URI.encode_www_form(aform)
 request.body = form_data
 req_options = {
   use_ssl: uri.scheme == 'https',
