@@ -9,7 +9,7 @@ require 'uri'
 ahost_name = 'checkmks'
 ahost_ip   = '10.1.1.20'
 
-cmd = "#{node['cmk']['api_url']}?action=add_host&#{node['cmk']['api_login']}")
+cmd = "#{node['cmk']['api_url']}?action=add_host&#{node['cmk']['api_login']}"
 puts "cmd2=[#{cmd}]"
 uri = URI.parse(cmd)
 #uri = URI.parse("#{node['cmk']['api_url']}?action=get_all_hosts&#{node['cmk']['api_login']}")
