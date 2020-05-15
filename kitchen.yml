@@ -5,8 +5,8 @@ driver:
 provisioner:
   name: chef_zero
   product_name: chef
-  product_version: <%= ENV['chef_release'] %>
-  download_url: http://10.1.1.30/media/chef-<%= ENV['chef_release'] %>-1.el7.x86_64.rpm
+  product_version: 15.9.17
+  download_url: http://websrv/media/chef-15.9.17-1.el7.x86_64.rpm
   install_strategy: once
   deprecations_as_errors: true
   chef_license: accept-no-persist
@@ -20,21 +20,14 @@ platforms:
 suites:
   - name: checkmks
     driver:
-      vm_hostname: <%= ENV['CMK_NAME'] %>
       network:
-      - ["private_network", {ip: "<%= ENV['CMK_IP'] %>"}]
+      - ["private_network", {ip: "10.1.1.20"}]
       customize:
-        memory: <%= ENV['CMK_RAM'] %>
-        cpus: <%= ENV['CMK_CPU'] %>
-        name: <%= ENV['CMK_NAME'] %>
-    # run_list:
-    #   - recipe[checkmk::server]
-    #   - recipe[checkmk::add_host]
+        memory: 2048
+        cpus:   1
     verifier:
       inspec_tests:
         - test/integration/default
-    attributes:
-      server_ip: <%= ENV['CMK_IP'] %>
 
   - name: checkmka
     driver:
@@ -42,13 +35,8 @@ suites:
       network:
       - ["private_network", {ip: "10.1.1.102"}]
       customize:
-        memory: <%= ENV['WEB_RAM'] %>
-        cpus: <%= ENV['CMK_CPU'] %>
-        name: checkmka
-    run_list:
-      - recipe[checkmk::agent-cmk]
+        memory: 1024
+        cpus:   1
     verifier:
       inspec_tests:
         - test/integration/default
-    attributes:
-      server_ip: <%= ENV['CMK_IP'] %>
