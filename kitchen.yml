@@ -6,7 +6,7 @@ provisioner:
   name: chef_zero
   product_name: chef
   product_version: 15.9.17
-  download_url: http://websrv/media/chef-15.9.17-1.el7.x86_64.rpm
+  download_url: http://10.1.1.30/media/15.9.17-1.el7.x86_64.rpm
   install_strategy: once
   deprecations_as_errors: true
   chef_license: accept-no-persist
