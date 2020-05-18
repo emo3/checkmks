@@ -14,5 +14,5 @@ default_source :supermarket
 run_list 'checkmk::server'
 
 # Specify a custom source for a single cookbook:
-cookbook 'checkmk', path: '.'
-cookbook 'server_utils', path: '../server_utils'
+cookbook 'checkmk',      path: '.'
+cookbook 'server_utils', git:  'https://github.com/emo3/server_utils.git'
