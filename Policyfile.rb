@@ -10,8 +10,9 @@ name 'checkmk'
 default_source :supermarket
 
 # run_list: chef-client will run these recipes in the order specified.
-run_list 'checkmk::server', 'checkmk::add_host'
-#run_list 'checkmk::server'
+#run_list 'checkmk::server', 'checkmk::add_host'
+run_list 'checkmk::server'
 
 # Specify a custom source for a single cookbook:
 cookbook 'checkmk', path: '.'
+cookbook 'server_utils', path: '../server_utils'
