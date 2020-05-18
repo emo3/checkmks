@@ -16,6 +16,7 @@ verifier:
 
 platforms:
 - name: mycentos7
+- name: mycentos8
 
 suites:
   - name: checkmks

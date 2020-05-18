@@ -15,3 +15,4 @@ run_list 'checkmk::server'
 
 # Specify a custom source for a single cookbook:
 cookbook 'checkmk', path: '.'
+cookbook 'server_utils', path: '../server_utils'

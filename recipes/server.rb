@@ -31,6 +31,7 @@ end
 
 execute "start_#{node['cmk']['instance_name']}" do
   command "omd start #{node['cmk']['instance_name']}"
+  notifies :run, 'chef_sleep[myname]'
   not_if ("ps -eaf | grep -v grep | grep #{node['cmk']['instance_name']}")
 end
 
@@ -39,16 +40,15 @@ execute 'fix for selinux' do
   only_if ('/usr/sbin/getsebool httpd_can_network_connect | grep off')
 end
 
+chef_sleep 'myname' do
+  seconds 5
+  action  :nothing
+  notifies :run, 'execute[automation-key]', :delayed
+end
+
 execute 'automation-key' do
   command lazy { 'cat /opt/omd/sites/cmk/var/check_mk/web/automation/automation.secret' }
   live_stream true
-  action :run
-  notifies :run, 'execute[not_first_time]', :immediately
-  not_if  { File.exist?("/opt/omd/sites/#{node['cmk']['instance_name']}/NOTFIRST") }
-  only_if { File.exist?('/opt/omd/sites/cmk/var/check_mk/web/automation/automation.secret') }
-end
-
-execute 'not_first_time' do
-  command "touch /opt/omd/sites/#{node['cmk']['instance_name']}/NOTFIRST"
   action :nothing
+  only_if { File.exist?('/opt/omd/sites/cmk/var/check_mk/web/automation/automation.secret') }
 end
