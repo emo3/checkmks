@@ -7,13 +7,13 @@ require 'net/http'
 require 'uri'
 
 ahost_name = 'checkmks'
-ahost_ip   = '10.1.1.20'
+# ahost_ip   = node['cmk']['server_ip']
 cmd = "#{node['cmk']['api_url']}?action=get_host&#{node['cmk']['api_login']}"
 puts "cmd=[#{cmd}]"
 uri = URI.parse(cmd)
-#uri = URI.parse("#{node['cmk']['api_url']}?action=get_all_hosts&#{node['cmk']['api_login']}")
+# uri = URI.parse("#{node['cmk']['api_url']}?action=get_all_hosts&#{node['cmk']['api_login']}")
 request = Net::HTTP::Post.new(uri)
-aform = {:hostname => ahost_name}
+aform = { hostname => ahost_name }
 form_data = URI.encode_www_form(aform)
 request.body = form_data
 req_options = {
@@ -25,14 +25,14 @@ end
 if response.is_a?(Net::HTTPSuccess)
   data = JSON.parse(response.body)
   puts data
-  node.normal['cmk']['code'] = data['result_code']
+  node.default['cmk']['code'] = data['result_code']
   if data['result_code'] == 1
     puts "NOT FOUND host[#{ahost_name}]"
   else
-    puts "FOUND"
+    puts 'FOUND'
   end
 else
-  puts 'BAD=#{response.code}!'
+  puts "BAD=#{response.code}!"
 end
 
 # add the node, since it was not found

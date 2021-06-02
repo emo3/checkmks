@@ -26,18 +26,18 @@ end
 execute "create_#{node['cmk']['instance_name']}" do
   command "omd create --admin-password #{node['cmk']['admin_passwd']} #{node['cmk']['instance_name']}"
   sensitive true
-  not_if { File.exist?("/opt/omd/sites/#{node['cmk']['instance_name']}") }
+  not_if { ::File.exist?("/opt/omd/sites/#{node['cmk']['instance_name']}") }
 end
 
 execute "start_#{node['cmk']['instance_name']}" do
   command "omd start #{node['cmk']['instance_name']}"
   notifies :run, 'chef_sleep[myname]'
-  not_if ("ps -eaf | grep -v grep | grep #{node['cmk']['instance_name']}")
+  not_if("ps -eaf | grep -v grep | grep #{node['cmk']['instance_name']}")
 end
 
 execute 'fix for selinux' do
   command '/usr/sbin/setsebool -P httpd_can_network_connect=1'
-  only_if ('/usr/sbin/getsebool httpd_can_network_connect | grep off')
+  only_if('/usr/sbin/getsebool httpd_can_network_connect | grep off')
 end
 
 chef_sleep 'myname' do
@@ -50,5 +50,5 @@ execute 'automation-key' do
   command lazy { 'cat /opt/omd/sites/cmk/var/check_mk/web/automation/automation.secret' }
   live_stream true
   action :nothing
-  only_if { File.exist?('/opt/omd/sites/cmk/var/check_mk/web/automation/automation.secret') }
+  only_if { ::File.exist?('/opt/omd/sites/cmk/var/check_mk/web/automation/automation.secret') }
 end
