@@ -11,4 +11,4 @@ version          '1.3.1'
 supports 'redhat'
 supports 'centos'
 
-depends 'server_utils'
+depends 'line'

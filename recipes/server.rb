@@ -5,12 +5,21 @@
 # Copyright:: 2019, Ed Overton, Apache 2.0
 # package %w(xinetd openssl python)
 
-set_hostname 'chefsrv'
-set_hostname 'websrv' do
-  host_ip '10.1.1.30'
-  host_name 'websrv'
+hostname 'chefsrv' do
+  ipaddress '10.1.1.10'
 end
-epel_local_repo 'checkmk'
+
+hostname 'websrv' do
+  ipaddress '10.1.1.30'
+end
+
+package 'epel-release'
+
+replace_or_add 'enablePowerTools' do
+  path '/etc/yum.repos.d/CentOS-Linux-PowerTools.repo'
+  pattern 'enabled=0'
+  line 'enabled=1'
+end
 
 # Download the check_mk raw server package file
 remote_file "#{Chef::Config[:file_cache_path]}/#{node['cmk']['server_rpm']}" do

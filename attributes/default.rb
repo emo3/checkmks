@@ -1,7 +1,7 @@
 default['cmk'].tap do |cmk|
   cmk['media_url'] = 'http://websrv/media'
-  cmk['cmk_release'] = '1.6.0'
-  cmk['cmk_version'] = 'p20'
+  cmk['cmk_release'] = '2.0.0'
+  cmk['cmk_version'] = 'p5'
   cmk['el_version'] = if node['platform_version'] < '8'
                         '7'
                       else
