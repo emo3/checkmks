@@ -1,6 +1,11 @@
 ---
 driver:
   name: vagrant
+  customize:
+    memory: 1024
+    cpus: 1
+  network:
+   - ['private_network', ip: '10.1.1.20']
 
 provisioner:
   name: chef_zero
@@ -18,24 +23,6 @@ platforms:
 
 suites:
   - name: checkmks
-    driver:
-      network:
-      - ["private_network", {ip: "10.1.1.20"}]
-      customize:
-        memory: 2048
-        cpus:   1
-    verifier:
-      inspec_tests:
-        - test/integration/default
-
-  - name: checkmka
-    driver:
-      vm_hostname: checkmka
-      network:
-      - ["private_network", {ip: "10.1.1.102"}]
-      customize:
-        memory: 1024
-        cpus:   1
     verifier:
       inspec_tests:
         - test/integration/default

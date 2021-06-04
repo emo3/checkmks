@@ -40,19 +40,14 @@ end
 
 execute "start_#{node['cmk']['instance_name']}" do
   command "omd start #{node['cmk']['instance_name']}"
-  notifies :run, 'chef_sleep[myname]'
+  notifies :sleep, 'chef_sleep[myname]'
   not_if("ps -eaf | grep -v grep | grep #{node['cmk']['instance_name']}")
 end
 
-execute 'fix for selinux' do
-  command '/usr/sbin/setsebool -P httpd_can_network_connect=1'
-  only_if('/usr/sbin/getsebool httpd_can_network_connect | grep off')
-end
-
 chef_sleep 'myname' do
-  seconds 5
-  action  :nothing
-  notifies :run, 'execute[automation-key]', :delayed
+  seconds 10
+  action :nothing
+  notifies :run, 'execute[automation-key]'
 end
 
 execute 'automation-key' do
