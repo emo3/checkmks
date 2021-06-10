@@ -43,16 +43,3 @@ execute "start_#{node['cmk']['instance_name']}" do
   notifies :sleep, 'chef_sleep[myname]'
   not_if("ps -eaf | grep -v grep | grep #{node['cmk']['instance_name']}")
 end
-
-chef_sleep 'myname' do
-  seconds 10
-  action :nothing
-  notifies :run, 'execute[automation-key]'
-end
-
-execute 'automation-key' do
-  command lazy { 'cat /opt/omd/sites/cmk/var/check_mk/web/automation/automation.secret' }
-  live_stream true
-  action :nothing
-  only_if { ::File.exist?('/opt/omd/sites/cmk/var/check_mk/web/automation/automation.secret') }
-end
