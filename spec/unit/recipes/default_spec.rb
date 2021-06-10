@@ -5,7 +5,7 @@
 
 require 'spec_helper'
 
-describe 'checkmk::agent-cmk' do
+describe 'checkmk-server::server' do
   context 'When all attributes are default, on CentOS 8' do
     # for a complete list of available platforms and versions see:
     # https://github.com/chefspec/fauxhai/blob/master/PLATFORMS.md
