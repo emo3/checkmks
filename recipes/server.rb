@@ -40,6 +40,5 @@ end
 
 execute "start_#{node['cmk']['instance_name']}" do
   command "omd start #{node['cmk']['instance_name']}"
-  notifies :sleep, 'chef_sleep[myname]'
   not_if("ps -eaf | grep -v grep | grep #{node['cmk']['instance_name']}")
 end
