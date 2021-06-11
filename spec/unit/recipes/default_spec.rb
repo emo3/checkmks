@@ -11,6 +11,10 @@ describe 'checkmk-server::server' do
     # https://github.com/chefspec/fauxhai/blob/master/PLATFORMS.md
     platform 'centos', '8'
 
+    before do
+      stub_command('ps -eaf | grep -v grep | grep cmk').and_return(true)
+    end
+
     it 'converges successfully' do
       expect { chef_run }.to_not raise_error
     end

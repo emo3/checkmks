@@ -5,12 +5,14 @@
 # Copyright:: 2019, Ed Overton, Apache 2.0
 # package %w(xinetd openssl python)
 
-hostname 'chefsrv' do
-  ipaddress '10.1.1.10'
+append_if_no_line 'chefsrv' do
+  path '/etc/hosts'
+  line '10.1.1.10 chefsrv'
 end
 
-hostname 'websrv' do
-  ipaddress '10.1.1.30'
+append_if_no_line 'websrv' do
+  path '/etc/hosts'
+  line '10.1.1.30 websrv'
 end
 
 package 'epel-release'
