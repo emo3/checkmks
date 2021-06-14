@@ -1,9 +1,9 @@
 default['cmk'].tap do |cmk|
   cmk['media_url'] = 'http://websrv/media'
-  # cmk['cmk_release'] = '2.0.0'
-  # cmk['cmk_version'] = 'p5'
-  cmk['cmk_release'] = '1.6.0'
-  cmk['cmk_version'] = 'p24'
+  cmk['cmk_release'] = '2.0.0'
+  cmk['cmk_version'] = 'p5'
+  # cmk['cmk_release'] = '1.6.0'
+  # cmk['cmk_version'] = 'p24'
   cmk['el_version'] = if node['platform_version'] < '8'
                         '7'
                       else
@@ -14,4 +14,5 @@ default['cmk'].tap do |cmk|
   cmk['server_name'] = 'checkmks'
   cmk['server_ip'] = '10.1.1.20'
   cmk['admin_passwd'] = 'cmkadmin'
+  cmk['local_url'] = 'n'
 end

@@ -5,22 +5,26 @@
 # Copyright:: 2019, Ed Overton, Apache 2.0
 # package %w(xinetd openssl python)
 
-append_if_no_line 'chefsrv' do
-  path '/etc/hosts'
-  line '10.1.1.10 chefsrv'
-end
-
-append_if_no_line 'websrv' do
-  path '/etc/hosts'
-  line '10.1.1.30 websrv'
-end
-
 package 'epel-release'
 
 replace_or_add 'enablePowerTools' do
   path '/etc/yum.repos.d/CentOS-Linux-PowerTools.repo'
   pattern 'enabled=0'
   line 'enabled=1'
+end
+
+if node['cmk']['local_url'] != 'y'
+  node.default['cmk']['media_url'] = "https://download.checkmk.com/checkmk/#{node['cmk']['cmk_release']}#{node['cmk']['cmk_version']}"
+else
+  append_if_no_line 'chefsrv' do
+    path '/etc/hosts'
+    line '10.1.1.10 chefsrv'
+  end
+
+  append_if_no_line 'websrv' do
+    path '/etc/hosts'
+    line '10.1.1.30 websrv'
+  end
 end
 
 # Download the check_mk raw server package file
