@@ -12,7 +12,6 @@ default['cmk'].tap do |cmk|
   cmk['server_rpm'] = "check-mk-raw-#{cmk['cmk_release']}#{cmk['cmk_version']}-el#{cmk['el_version']}-38.x86_64.rpm"
   cmk['instance_name'] = 'cmk'
   cmk['server_name'] = 'checkmks'
-  cmk['server_ip'] = node['server_ip']
   cmk['admin_passwd'] = 'cmkadmin'
   cmk['local_url'] = 'n'
 end
