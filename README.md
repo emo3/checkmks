@@ -1,4 +1,4 @@
-# checkmk
+# checkmks
 
 Here are two examples of where to get the free version:<br />
 This for RHEL/CentOS only<br />
