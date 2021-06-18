@@ -8,7 +8,7 @@ default['cmk'].tap do |cmk|
                         '8'
                       end
   cmk['server_rpm'] = "check-mk-raw-#{cmk['cmk_release1']}-el#{cmk['el_version']}-38.x86_64.rpm"
-  cmk['instance_name'] = 'cmk'
+  cmk['site_name'] = 'cmk'
   cmk['server_name'] = 'checkmks'
   cmk['admin_passwd'] = 'cmkadmin'
   cmk['local_url'] = 'n'

@@ -38,13 +38,13 @@ package node['cmk']['server_rpm'] do
   source "#{Chef::Config[:file_cache_path]}/#{node['cmk']['server_rpm']}"
 end
 
-execute "create_#{node['cmk']['instance_name']}" do
-  command "omd create --admin-password #{node['cmk']['admin_passwd']} #{node['cmk']['instance_name']}"
+execute "create_#{node['cmk']['site_name']}" do
+  command "omd create --admin-password #{node['cmk']['admin_passwd']} #{node['cmk']['site_name']}"
   sensitive true
-  not_if { ::File.exist?("/opt/omd/sites/#{node['cmk']['instance_name']}") }
+  not_if { ::File.exist?("/opt/omd/sites/#{node['cmk']['site_name']}") }
 end
 
-execute "start_#{node['cmk']['instance_name']}" do
-  command "omd start #{node['cmk']['instance_name']}"
-  not_if("ps -eaf | grep -v grep | grep #{node['cmk']['instance_name']}")
+execute "start_#{node['cmk']['site_name']}" do
+  command "omd start #{node['cmk']['site_name']}"
+  not_if("ps -eaf | grep -v grep | grep #{node['cmk']['site_name']}")
 end
