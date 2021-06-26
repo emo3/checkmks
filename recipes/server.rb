@@ -14,7 +14,7 @@ replace_or_add 'enablePowerTools' do
 end
 
 if node['cmk']['local_url'] != 'y'
-  node.default['cmk']['media_url'] = "https://download.checkmk.com/checkmk/#{node['cmk']['cmk_release1']}"
+  node.default['cmk']['media_url'] = "https://download.checkmk.com/checkmk/#{node['cmk']['cmk_release']}"
 else
   append_if_no_line 'chefsrv' do
     path '/etc/hosts'

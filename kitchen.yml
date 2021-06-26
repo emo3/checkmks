@@ -4,8 +4,6 @@ driver:
   customize:
     memory: 1024
     cpus: 1
-  network:
-   - ['private_network', ip: '10.1.1.20']
 
 provisioner:
   name: chef_zero
@@ -23,6 +21,18 @@ platforms:
 
 suites:
   - name: checkmks
+    provisioner:
+      named_run_list: cmk_server
+    network:
+      - ['private_network', ip: '10.1.1.20']
+    verifier:
+      inspec_tests:
+        - test/integration/default
+  - name: checkmka
+    provisioner:
+      named_run_list: cmk_agent
+    network:
+      - ['private_network', ip: '10.1.1.21']
     verifier:
       inspec_tests:
         - test/integration/default

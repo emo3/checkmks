@@ -1,4 +1,4 @@
-# checkmks
+# checkmk
 
 Here are two examples of where to get the free version:<br />
 This for RHEL/CentOS only<br />
@@ -14,7 +14,7 @@ wget http://checkmks/cmk/check_mk/agents/check-mk-agent-${cmkv}-1.noarch.rpm
 curl "http://checkmks/cmk/check_mk/webapi.py?action=get_all_hosts&_username=automation&_secret=$akey"
 ```
 
-Cat the following file on the server
+Cat the following file on the server to view the token
 `cat /opt/omd/sites/cmk/var/check_mk/web/automation/automation.secret`
 
 Creating a host:
