@@ -11,6 +11,7 @@ default_source :supermarket
 
 run_list 'checkmk::server'
 named_run_list :cmk_server, 'checkmk::server'
+named_run_list :cmk_srvagt, 'checkmk::server', 'checkmk::agent-cmk'
 named_run_list :cmk_agent,  'checkmk::agent-cmk'
 
 # Specify a custom source for a single cookbook:

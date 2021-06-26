@@ -14,7 +14,7 @@ default['cmk'].tap do |cmk|
   cmk['server_ip'] = '10.1.1.20'
   cmk['agent_ip'] = '10.1.1.21'
   cmk['api_url'] = "http://#{cmk['server_name']}/#{cmk['site_name']}/check_mk/webapi.py"
-  cmk['api_token'] = 'e0e0ce2f-2c84-4b7d-acb7-543f2ab41732'
+  cmk['api_token'] = '402efbc8-d4ae-43f3-93e0-9966ee5b4366'
   cmk['api_user'] = 'automation'
   cmk['api_login'] = "_username=#{cmk['api_user']}&_secret=#{cmk['api_key']}"
   cmk['code'] = '0'

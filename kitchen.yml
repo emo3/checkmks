@@ -21,18 +21,20 @@ platforms:
 
 suites:
   - name: checkmks
+    driver_config:
+      network:
+        - ['private_network', ip: '10.1.1.20']
     provisioner:
-      named_run_list: cmk_server
-    network:
-      - ['private_network', ip: '10.1.1.20']
+      named_run_list: cmk_srvagt
     verifier:
       inspec_tests:
         - test/integration/default
   - name: checkmka
+    driver_config:
+      network:
+        - ['private_network', ip: '10.1.1.21']
     provisioner:
       named_run_list: cmk_agent
-    network:
-      - ['private_network', ip: '10.1.1.21']
     verifier:
       inspec_tests:
         - test/integration/default

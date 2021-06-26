@@ -29,7 +29,7 @@ end
 
 append_if_no_line node['cmk']['server_name'] do
   path '/etc/hosts'
-  line "#{node['cmk']['server_ip']} node['cmk']['server_name']"
+  line "#{node['cmk']['server_ip']} #{node['cmk']['server_name']}"
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/#{node['cmk']['agent_rpm']}" do
