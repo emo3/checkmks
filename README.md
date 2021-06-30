@@ -14,8 +14,15 @@ wget http://checkmks/cmk/check_mk/agents/check-mk-agent-${cmkv}-1.noarch.rpm
 curl "http://checkmks/cmk/check_mk/webapi.py?action=get_all_hosts&_username=automation&_secret=$akey"
 ```
 
-Cat the following file on the server to view the token
-`cat /opt/omd/sites/cmk/var/check_mk/web/automation/automation.secret`
+The following will list the CheckMK token, if on server
+```
+cat /opt/omd/sites/cmk/var/check_mk/web/automation/automation.secret
+```
+
+The following will list the CheckMK token, from host
+```
+knife ssh -m checkmks -x vagrant -P vagrant 'sudo cat /opt/omd/sites/cmk/var/check_mk/web/automation/automation.secret'
+```
 
 Creating a host:
 `curl "http://checkmks/cmk/check_mk/webapi.py?action=add_host&_username=automation&_secret=$akey" -d 'request={"hostname":"checkmks","folder":"","attributes":{"ipaddress":"10.1.1.20","site":"cmk","tag_agent":"cmk-agent"}}'`

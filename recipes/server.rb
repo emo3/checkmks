@@ -48,3 +48,8 @@ execute "start_#{node['cmk']['site_name']}" do
   command "omd start #{node['cmk']['site_name']}"
   not_if("ps -eaf | grep -v grep | grep #{node['cmk']['site_name']}")
 end
+
+cookbook_file '/tmp/cat_token.sh' do
+  source 'cat_token.sh'
+  mode '0755'
+end
