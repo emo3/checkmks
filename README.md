@@ -5,7 +5,11 @@ This for RHEL/CentOS only<br />
 ```
 osv=8 # Version of RHEL/CentOS
 cmkv='2.0.0p5' # Version of checkmk server
-wget https://download.checkmk.com/checkmk/${cmkv}/check-mk-raw-${cmkv}-el${osv}-38.x86_64.rpm
+wget -q https://download.checkmk.com/checkmk/${cmkv}/check-mk-raw-${cmkv}-el${osv}-38.x86_64.rpm
+## 1.6.0
+wget -q https://download.checkmk.com/checkmk/${cmkv}/check-mk-enterprise-${cmkv}.demo-el${osv}-38.x86_64.rpm
+## 2.0.0
+wget -q https://download.checkmk.com/checkmk/${cmkv}/check-mk-free-${cmkv}-el${osv}-38.x86_64.rpm
 ```
 
 My local server to get pre-packaged agent
