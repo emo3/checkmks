@@ -18,24 +18,34 @@ verifier:
 
 platforms:
   - name: bento/centos-8
-  - name: bento/centos-7
 
 suites:
   - name: checkmks
     driver_config:
       network:
-        - ['private_network', ip: '10.1.1.20']
+        - ['private_network', ip: '<%= ENV['CMK_IP'] %>']
     provisioner:
       named_run_list: cmk_server
+    attributes:
+      cmk_token: <%= ENV['CMK_TOKEN'] %>
+      server_ip: <%= ENV['CMK_IP'] %>
+      agent_ip: <%= ENV['CMA_IP'] %>
+    lifecycle:
+      post_converge:
+        - remote: sh /tmp/cat_token.sh
     verifier:
       inspec_tests:
         - test/integration/default
   - name: checkmka
     driver_config:
       network:
-        - ['private_network', ip: '10.1.1.21']
+        - ['private_network', ip: '<%= ENV['CMA_IP'] %>']
     provisioner:
       named_run_list: cmk_agent
+    attributes:
+      cmk_token: <%= ENV['CMK_TOKEN'] %>
+      server_ip: <%= ENV['CMK_IP'] %>
+      agent_ip: <%= ENV['CMA_IP'] %>
     verifier:
       inspec_tests:
         - test/integration/default
