@@ -17,7 +17,7 @@ verifier:
   name: inspec
 
 platforms:
-  - name: centos-8
+  - name: bento/centos-8
 
 suites:
   - name: checkmks
@@ -26,7 +26,6 @@ suites:
         - ['private_network', ip: '<%= ENV['CMK_IP'] %>']
     provisioner:
       named_run_list: cmk_server
-      # named_run_list: cmk_srvagt
     attributes:
       cmk_token: <%= ENV['CMK_TOKEN'] %>
       server_ip: <%= ENV['CMK_IP'] %>
