@@ -1,6 +1,10 @@
 # checkmk
 
-Here are two examples of where to get the free version:<br />
+Enviromental required variables that need to be defined<br/>
+  CMK_TOKEN - To hold the token created by the server
+  CMK_IP - The IP address of the CheckMK server
+
+Here is an example of where to get the free version:<br />
 This for RHEL/CentOS only<br />
 ```
 osv=8 # Version of RHEL/CentOS

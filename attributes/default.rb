@@ -15,6 +15,7 @@ default['cmk'].tap do |cmk|
   cmk['agent_rpm'] = "check-mk-agent-#{cmk['cmk_release']}-1.noarch.rpm"
   cmk['site_name'] = 'cmk'
   cmk['server_name'] = 'checkmks'
+  cmk['server_ip'] = '192.168.86.130'
   cmk['admin_passwd'] = 'cmkadmin'
   cmk['server_ip'] = node['server_ip']
   cmk['agent_ip'] = node['agent_ip']

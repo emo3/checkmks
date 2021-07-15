@@ -10,14 +10,14 @@ provisioner:
   product_name: chef
   product_version: <%= ENV['chef_release'] %>
   install_strategy: once
-  deprecations_as_errors: true
+  deprecations_as_errors: false
   chef_license: accept-no-persist
 
 verifier:
   name: inspec
 
 platforms:
-  - name: bento/centos-8
+  - name: centos-8
 
 suites:
   - name: checkmks
@@ -26,10 +26,9 @@ suites:
         - ['private_network', ip: '<%= ENV['CMK_IP'] %>']
     provisioner:
       named_run_list: cmk_server
+      # named_run_list: cmk_srvagt
     attributes:
       cmk_token: <%= ENV['CMK_TOKEN'] %>
-      server_ip: <%= ENV['CMK_IP'] %>
-      agent_ip: <%= ENV['CMA_IP'] %>
     lifecycle:
       post_converge:
         - remote: sh /tmp/cat_token.sh
@@ -45,7 +44,6 @@ suites:
     attributes:
       cmk_token: <%= ENV['CMK_TOKEN'] %>
       server_ip: <%= ENV['CMK_IP'] %>
-      agent_ip: <%= ENV['CMA_IP'] %>
     verifier:
       inspec_tests:
         - test/integration/default
