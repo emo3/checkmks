@@ -8,9 +8,8 @@ driver:
 provisioner:
   name: chef_zero
   product_name: chef
-  product_version: <%= ENV['chef_release'] %>
   install_strategy: once
-  deprecations_as_errors: false
+  deprecations_as_errors: true
   chef_license: accept-no-persist
 
 verifier:
@@ -23,7 +22,7 @@ suites:
   - name: checkmks
     driver_config:
       network:
-        - ['private_network', ip: '<%= ENV['CMK_IP'] %>']
+        - ['public_network', {ip: '<%= ENV['CMK_IP'] %>', bridge: '<%= ENV['ETH'] %>'}]
     provisioner:
       named_run_list: cmk_server
       # named_run_list: cmk_srvagt
@@ -38,7 +37,7 @@ suites:
   - name: checkmka
     driver_config:
       network:
-        - ['private_network', ip: '<%= ENV['CMA_IP'] %>']
+        - ['public_network', {ip: '<%= ENV['CMA_IP'] %>', bridge: '<%= ENV['ETH'] %>'}]
     provisioner:
       named_run_list: cmk_agent
     attributes:
