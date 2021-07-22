@@ -13,7 +13,7 @@ puts "cmd=[#{cmd}]"
 uri = URI.parse(cmd)
 # uri = URI.parse("#{node['cmk']['api_url']}?action=get_all_hosts&#{node['cmk']['api_login']}")
 request = Net::HTTP::Post.new(uri)
-aform = { :hostname => ahost_name }
+aform = { node['hostname'] => ahost_name }
 form_data = URI.encode_www_form(aform)
 request.body = form_data
 req_options = {

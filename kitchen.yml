@@ -8,7 +8,6 @@ driver:
 provisioner:
   name: chef_zero
   product_name: chef
-  product_version: <%= ENV['chef_release'] %>
   install_strategy: once
   deprecations_as_errors: true
   chef_license: accept-no-persist
@@ -23,18 +22,27 @@ suites:
   - name: checkmks
     driver_config:
       network:
-        - ['private_network', ip: '10.1.1.20']
+        - ['public_network', {ip: '<%= ENV['CMK_IP'] %>', bridge: '<%= ENV['ETH'] %>'}]
     provisioner:
-      named_run_list: cmk_srvagt
+      named_run_list: cmk_server
+      # named_run_list: cmk_srvagt
+    attributes:
+      cmk_token: <%= ENV['CMK_TOKEN'] %>
+    lifecycle:
+      post_converge:
+        - remote: sh /tmp/cat_token.sh
     verifier:
       inspec_tests:
         - test/integration/default
   - name: checkmka
     driver_config:
       network:
-        - ['private_network', ip: '10.1.1.21']
+        - ['public_network', {ip: '<%= ENV['CMA_IP'] %>', bridge: '<%= ENV['ETH'] %>'}]
     provisioner:
       named_run_list: cmk_agent
+    attributes:
+      cmk_token: <%= ENV['CMK_TOKEN'] %>
+      server_ip: <%= ENV['CMK_IP'] %>
     verifier:
       inspec_tests:
         - test/integration/default
