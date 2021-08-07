@@ -22,7 +22,8 @@ suites:
   - name: checkmks
     driver_config:
       network:
-        - ['public_network', {ip: '<%= ENV['CMK_IP'] %>', bridge: '<%= ENV['ETH'] %>'}]
+        - ['private_network', ip: '<%= ENV['CMK_IP'] %>']
+#        - ['public_network', {ip: '<%= ENV['CMK_IP'] %>', bridge: '<%= ENV['ETH'] %>'}]
     provisioner:
       named_run_list: cmk_server
       # named_run_list: cmk_srvagt
@@ -37,7 +38,8 @@ suites:
   - name: checkmka
     driver_config:
       network:
-        - ['public_network', {ip: '<%= ENV['CMA_IP'] %>', bridge: '<%= ENV['ETH'] %>'}]
+        - ['private_network', ip: '<%= ENV['CMA_IP'] %>']
+#        - ['public_network', {ip: '<%= ENV['CMA_IP'] %>', bridge: '<%= ENV['ETH'] %>'}]
     provisioner:
       named_run_list: cmk_agent
     attributes:
