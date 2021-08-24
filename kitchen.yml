@@ -10,13 +10,14 @@ provisioner:
   product_name: chef
   install_strategy: once
   deprecations_as_errors: true
+  treat_deprecation_warnings_as_errors: true
   chef_license: accept-no-persist
 
 verifier:
   name: inspec
 
 platforms:
-  - name: centos-8
+  - name: bento/centos-8
 
 suites:
   - name: checkmks

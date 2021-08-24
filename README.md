@@ -23,7 +23,7 @@ curl "http://checkmks/cmk/check_mk/webapi.py?action=get_all_hosts&_username=auto
 
 The following will list the CheckMK token, if on server
 ```
-cat /opt/omd/sites/cmk/var/check_mk/web/automation/automation.secret
+sudo cat /opt/omd/sites/cmk/var/check_mk/web/automation/automation.secret
 ```
 
 The following will list the CheckMK token, from host

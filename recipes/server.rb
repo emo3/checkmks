@@ -3,7 +3,6 @@
 # Recipe:: default
 #
 # Copyright:: 2019, Ed Overton, Apache 2.0
-# package %w(xinetd openssl python)
 
 package 'epel-release'
 
@@ -14,11 +13,11 @@ replace_or_add 'enablePowerTools' do
 end
 
 if node['cmk']['local_url'] != 'y'
-  node.default['cmk']['media_url'] = "https://download.checkmk.com/checkmk/#{node['cmk']['cmk_release']}"
+  node.override['cmk']['media_url'] = "https://download.checkmk.com/checkmk/#{node['cmk']['cmk_release']}"
 else
-  append_if_no_line 'websrv' do
+  append_if_no_line node['cmk']['web_name'] do
     path '/etc/hosts'
-    line '10.1.1.30 websrv'
+    line "#{node['cmk']['web_ip']} #{node['cmk']['web_name']}"
   end
 end
 

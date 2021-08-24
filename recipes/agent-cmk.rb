@@ -3,7 +3,6 @@
 # Recipe:: agent-cmk
 #
 # Copyright:: 2019, Ed Overton, Apache 2.0
-node.default['cmk']['api_token'] = node['cmk_token']
 
 package 'xinetd'
 
@@ -14,14 +13,14 @@ end
 
 append_if_no_line 'hosts_allow' do
   path '/etc/hosts.allow'
-  line "check_mk_agent : #{node['server_ip']}"
+  line "check_mk_agent : #{node['cmk']['server_ip']}"
   notifies :reload, 'service[xinetd]', :immediately
 end
 
 template '/etc/xinetd.d/check_mk' do
   source 'check-mk-agent'
   variables(
-    ip_mk_server: node['server_ip']
+    ip_mk_server: node['cmk']['server_ip']
   )
   mode '0644'
   action :create
@@ -30,7 +29,7 @@ end
 
 append_if_no_line node['cmk']['server_name'] do
   path '/etc/hosts'
-  line "#{node['server_ip']} #{node['cmk']['server_name']}"
+  line "#{node['cmk']['server_ip']} #{node['cmk']['server_name']}"
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/#{node['cmk']['agent_rpm']}" do
@@ -52,7 +51,7 @@ template '/tmp/add-checkmks.sh' do
     cmkserver: node['cmk']['server_name'],
     apitoken: node['cmk']['api_token'],
     agenthostname: node['hostname'],
-    agentip: node['ipaddress']
+    agentip: node['cmk']['agent_ip']
   )
   notifies :run, 'execute[run_add-checkmks]', :immediately
 end

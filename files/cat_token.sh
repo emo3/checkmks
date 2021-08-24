@@ -12,3 +12,4 @@ while ! sudo test -f /opt/omd/sites/cmk/var/check_mk/web/automation/automation.s
   let i+=${wait};
 done;
 sudo cat /opt/omd/sites/cmk/var/check_mk/web/automation/automation.secret;
+sudo ip addr;
