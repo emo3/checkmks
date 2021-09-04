@@ -36,11 +36,12 @@ execute "create_#{node['cmk']['site_name']}" do
   command "omd create --admin-password #{node['cmk']['admin_passwd']} #{node['cmk']['site_name']}"
   sensitive true
   not_if { ::File.exist?("/opt/omd/sites/#{node['cmk']['site_name']}") }
+  notifies :run, "execute[start_#{node['cmk']['site_name']}]", :immediately
 end
 
 execute "start_#{node['cmk']['site_name']}" do
   command "omd start #{node['cmk']['site_name']}"
-  not_if("ps -eaf | grep -v grep | grep #{node['cmk']['site_name']}")
+  action :nothing
 end
 
 cookbook_file '/tmp/cat_token.sh' do

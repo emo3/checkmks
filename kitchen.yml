@@ -10,6 +10,7 @@ provisioner:
   product_name: chef
   install_strategy: once
   deprecations_as_errors: true
+  product_version: 17.4.25
   treat_deprecation_warnings_as_errors: true
   chef_license: accept-no-persist
 
