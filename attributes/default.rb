@@ -2,7 +2,7 @@ default['cmk'].tap do |cmk|
   cmk['web_name'] = 'websrv'
   cmk['web_ip'] = node['WEB_IP'] || '10.1.1.30'
   cmk['media_url'] = "http://#{cmk['web_name']}/media"
-  cmk['cmk_release'] = '2.0.0p8'
+  cmk['cmk_release'] = '2.0.0p9'
   cmk['el_version'] = if node['platform_version'] < '8'
                         '7'
                       else
