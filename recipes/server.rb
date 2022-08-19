@@ -6,12 +6,6 @@
 
 package 'epel-release'
 
-replace_or_add 'enablePowerTools' do
-  path '/etc/yum.repos.d/CentOS-Linux-PowerTools.repo'
-  pattern 'enabled=0'
-  line 'enabled=1'
-end
-
 if node['cmk']['local_url'] != 'y'
   node.override['cmk']['media_url'] = "https://download.checkmk.com/checkmk/#{node['cmk']['cmk_release']}"
 else

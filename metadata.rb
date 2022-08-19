@@ -6,9 +6,10 @@ maintainer_email 'you1@example.com'
 chef_version     '>= 15.0'
 license          'Apache-2.0'
 description      'Installs/Configures checkmk server/agent'
-version          '1.11.0'
+version          '1.12.0'
 
 supports 'redhat'
 supports 'centos'
+supports 'almalinux'
 
 depends 'line'

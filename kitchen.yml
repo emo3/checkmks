@@ -17,7 +17,7 @@ verifier:
   name: inspec
 
 platforms:
-  - name: bento/centos-8
+  - name: bento/centos-7
 
 suites:
   - name: checkmks
