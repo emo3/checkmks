@@ -1,15 +1,15 @@
-# Cookbook:: checkmk
+# Cookbook:: checkmks
 # Spec:: default
 #
 # Copyright:: 2019, Ed Overton, Apache 2.0
 
 require 'spec_helper'
 
-describe 'checkmk::server' do
-  context 'When all attributes are default, on CentOS 8' do
+describe 'checkmks::server' do
+  context 'When all attributes are default, on Almalinux 8' do
     # for a complete list of available platforms and versions see:
     # https://github.com/chefspec/fauxhai/blob/master/PLATFORMS.md
-    platform 'centos', '8'
+    platform 'almalinux', '8'
 
     before do
       stub_command('ps -eaf | grep -v grep | grep cmk').and_return(true)

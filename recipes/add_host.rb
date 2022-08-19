@@ -1,5 +1,5 @@
 #
-# Cookbook:: checkmk
+# Cookbook:: checkmks
 # Recipe:: add_host
 #
 # Copyright:: 2019, Ed Overton, Apache 2.0

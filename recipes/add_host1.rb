@@ -1,13 +1,10 @@
 #
-# Cookbook:: checkmk
+# Cookbook:: checkmks
 # Recipe:: add_host1
 #
 # Copyright:: 2019, Ed Overton, Apache 2.0
 require 'net/http'
 require 'uri'
-
-# ahost_name = 'checkmks'
-# ahost_ip   = node['cmk']['server_ip']
 
 cmd = "#{node['cmk']['api_url']}?action=add_host&#{node['cmk']['api_login']}"
 puts "cmd2=[#{cmd}]"
