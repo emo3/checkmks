@@ -4,18 +4,20 @@
 #
 # Copyright:: 2019, Ed Overton, Apache 2.0
 
-package 'epel-release'
-
-if node['cmk']['local_url'] != 'y'
-  node.override['cmk']['media_url'] = "https://download.checkmk.com/checkmk/#{node['cmk']['cmk_release']}"
-else
-  append_if_no_line node['cmk']['web_name'] do
-    path '/etc/hosts'
-    line "#{node['cmk']['web_ip']} #{node['cmk']['web_name']}"
-  end
+yum_repository 'almalinux-powertools' do
+  description 'AlmaLinux $releasever - PowerTools'
+  mirrorlist 'https://mirrors.almalinux.org/mirrorlist/$releasever/powertools'
+  enabled true
+  gpgcheck true
+  gpgkey 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-AlmaLinux'
+  action :create
 end
 
+package %w(epel-release xinetd openssl python3 graphviz-gd)
+
 # Download the check_mk raw server package file
+log node['cmk']['media_url']
+log node['cmk']['server_rpm']
 remote_file "#{Chef::Config[:file_cache_path]}/#{node['cmk']['server_rpm']}" do
   source "#{node['cmk']['media_url']}/#{node['cmk']['server_rpm']}"
   mode '0444'
