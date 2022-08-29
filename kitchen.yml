@@ -6,7 +6,9 @@ driver:
     memory: 1024
     cpus: 1
   network:
-   - ['private_network', ip: '10.1.1.20']
+   # - ['private_network', ip: '<%= ENV['CMK_IP'] %>']
+   - ['public_network', bridge: '<%= ENV['ETH'] %>']
+   # - ['public_network', bridge: '<%= ENV['ETH'] %>', ip: '<%= ENV['CMK_IP'] %>'
 
 provisioner:
   name: chef_zero

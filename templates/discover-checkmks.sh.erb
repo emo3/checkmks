@@ -1,4 +1,0 @@
-#!/bin/bash
-
-/bin/curl -k \
-  "http://<%= @cmkserver %>/cmk/check_mk/webapi.py?_secret=<%= @apitoken %>&_username=automation&action=discover_services" -d 'request={"hostname":"<%= @agenthostname %>"}'

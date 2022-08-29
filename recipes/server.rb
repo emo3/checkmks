@@ -11,13 +11,12 @@ yum_repository 'almalinux-powertools' do
   gpgcheck true
   gpgkey 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-AlmaLinux'
   action :create
-end
+end if platform?('almalinux')
 
-package %w(epel-release xinetd openssl python3 graphviz-gd)
+package %w(epel-release)
+package %w(xinetd openssl httpie graphviz-gd)
 
 # Download the check_mk raw server package file
-log node['cmk']['media_url']
-log node['cmk']['server_rpm']
 remote_file "#{Chef::Config[:file_cache_path]}/#{node['cmk']['server_rpm']}" do
   source "#{node['cmk']['media_url']}/#{node['cmk']['server_rpm']}"
   mode '0444'

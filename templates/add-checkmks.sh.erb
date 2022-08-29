@@ -1,4 +1,0 @@
-#!/bin/bash
-
-/bin/curl -k \
-  "http://<%= @cmkserver %>/cmk/check_mk/webapi.py?_secret=<%= @apitoken %>&_username=automation&action=add_host" -d 'request={"hostname":"<%= @agenthostname %>","folder":"","attributes":{"ipaddress":"<%= @agentip %>","site":"cmk","tag_agent":"cmk-agent"}}'
