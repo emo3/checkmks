@@ -1,25 +1,20 @@
 #
-# Cookbook:: checkmk
+# Cookbook:: checkmks
 # Recipe:: default
 #
 # Copyright:: 2019, Ed Overton, Apache 2.0
 
-package 'epel-release'
+yum_repository 'almalinux-powertools' do
+  description 'AlmaLinux $releasever - PowerTools'
+  mirrorlist 'https://mirrors.almalinux.org/mirrorlist/$releasever/powertools'
+  enabled true
+  gpgcheck true
+  gpgkey 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-AlmaLinux'
+  action :create
+end if platform?('almalinux')
 
-replace_or_add 'enablePowerTools' do
-  path '/etc/yum.repos.d/CentOS-Linux-PowerTools.repo'
-  pattern 'enabled=0'
-  line 'enabled=1'
-end
-
-if node['cmk']['local_url'] != 'y'
-  node.override['cmk']['media_url'] = "https://download.checkmk.com/checkmk/#{node['cmk']['cmk_release']}"
-else
-  append_if_no_line node['cmk']['web_name'] do
-    path '/etc/hosts'
-    line "#{node['cmk']['web_ip']} #{node['cmk']['web_name']}"
-  end
-end
+package %w(epel-release)
+package %w(xinetd openssl httpie graphviz-gd)
 
 # Download the check_mk raw server package file
 remote_file "#{Chef::Config[:file_cache_path]}/#{node['cmk']['server_rpm']}" do

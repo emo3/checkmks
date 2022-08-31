@@ -4,15 +4,12 @@
 # https://docs.chef.io/policyfile/
 
 # A name that describes what the system you're building with Chef does.
-name 'checkmk'
+name 'checkmks'
 
 # Where to find external cookbooks:
 default_source :supermarket
 
-run_list 'checkmk::server'
-named_run_list :cmk_server, 'checkmk::server'
-named_run_list :cmk_srvagt, 'checkmk::server', 'checkmk::agent-cmk'
-named_run_list :cmk_agent,  'checkmk::agent-cmk'
+run_list 'checkmks::server'
 
 # Specify a custom source for a single cookbook:
-cookbook 'checkmk', path: '.'
+cookbook 'checkmks', path: '.'
