@@ -6,8 +6,8 @@ driver:
     memory: 1024
     cpus: 1
   network:
-   # - ['private_network', ip: '<%= ENV['CMK_IP'] %>']
-   - ['public_network', bridge: '<%= ENV['ETH'] %>']
+   - ['private_network', ip: '<%= ENV['CMK_IP'] %>']
+   # - ['public_network', bridge: '<%= ENV['ETH'] %>']
    # - ['public_network', bridge: '<%= ENV['ETH'] %>', ip: '<%= ENV['CMK_IP'] %>'
 
 provisioner:
