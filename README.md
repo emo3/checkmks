@@ -1,5 +1,11 @@
 # checkmks
 
+To install a different version of CheckMK Server you will
+need to update the attributes->default of cmk['cmk_release']
+to the value you wish to use. Current values are:
+2.0.0p27
+2.1.0p10
+
 Here is an example of where to get the free version:<br />
 This for RHEL/CentOS only<br />
 ```
