@@ -13,3 +13,4 @@ run_list 'checkmks::server'
 
 # Specify a custom source for a single cookbook:
 cookbook 'checkmks', path: '.'
+override['cmk']['cmk_release'] = '2.0.0p27'
