@@ -27,9 +27,6 @@ platforms:
 
 suites:
   - name: checkmks
-    lifecycle:
-      post_converge:
-        - remote: sh /tmp/cat_token.sh
     verifier:
       inspec_tests:
         - test/integration/default

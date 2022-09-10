@@ -62,7 +62,7 @@ end
 template '/tmp/activate-checkmks.py' do
   source 'activate-checkmks1.erb'
   mode '0500'
-  sensitive false
+  sensitive true
   variables(
     cmkserver: 'localhost',
     apitoken: lazy { `cat /opt/omd/sites/cmk/var/check_mk/web/automation/automation.secret`.chomp },
@@ -77,6 +77,12 @@ execute 'run_activate-checkmks' do
   action :nothing
 end
 
-execute 'echo_token' do
-  command lazy { `cat /opt/omd/sites/cmk/var/check_mk/web/automation/automation.secret` }
+ruby_block 'Results' do
+  only_if { ::File.exist?('/opt/omd/sites/cmk/var/check_mk/web/automation/automation.secret') }
+  block do
+    print "\n"
+    File.open('/opt/omd/sites/cmk/var/check_mk/web/automation/automation.secret').each do |line|
+      print line
+    end
+  end
 end
