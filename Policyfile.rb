@@ -13,4 +13,4 @@ run_list 'checkmks::server'
 
 # Specify a custom source for a single cookbook:
 cookbook 'checkmks', path: '.'
-#override['cmk']['cmk_release'] = '2.1.0p18'
+override['cmk']['cmk_release'] = '2.1.0p18'
