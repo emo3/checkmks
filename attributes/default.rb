@@ -7,6 +7,7 @@ default['cmk']['el_version'] =
     '8'
   end
 default['cmk']['server_rpm'] = "check-mk-free-#{node['cmk']['cmk_release']}-el#{node['cmk']['el_version']}-38.x86_64.rpm"
+default['cmk']['server_version'] = "#{node['cmk']['cmk_release']}.cfe"
 default['cmk']['site_name'] = 'cmk'
 default['cmk']['server_name'] = 'checkmks'
 default['cmk']['admin_passwd'] = 'cmkadmin'
