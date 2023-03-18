@@ -1,0 +1,19 @@
+cmkv=16
+# https://download.checkmk.com/checkmk/2.1.0p${cmkv}/check-mk-enterprise-docker-2.1.0p${cmkv}.tar.gz
+# https://download.checkmk.com/checkmk/2.1.0p19/check-mk-enterprise-docker-2.1.0p19.tar.gz
+docker load -i check-mk-enterprise-docker-2.1.0p${cmkv}.tar.gz
+docker container run -e CMK_PASSWORD='cmkadmin' -dit -p 8080:5000 -p 8000:8000 --tmpfs /opt/omd/sites/cmk/tmp:uid=1000,gid=1000 -v monitoring${cmkv}:/omd/sites --name monitoring${cmkv} -v /etc/localtime:/etc/localtime:ro --restart always checkmk/check-mk-enterprise:2.1.0p${cmkv}
+docker container run -dit -p 8080:5000 -p 8000:8000 --tmpfs /opt/omd/sites/cmk/tmp:uid=1000,gid=1000 -v monitoring${cmkv}:/omd/sites --name monitoring${cmkv} -v /etc/localtime:/etc/localtime:ro --restart always checkmk/check-mk-enterprise:2.1.0p${cmkv}
+docker run --hostname=732fdcb5737b -
+--env=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin 
+--env=CMK_SITE_ID=cmk --env=CMK_LIVESTATUS_TCP= --env=CMK_PASSWORD= --env=MAIL_RELAY_HOST= 
+--env=CMK_CONTAINERIZED=TRUE --volume=monitoring16:/omd/sites 
+--volume=/host_mnt/private/var/db/timezone/tz/2022g.1.0/zoneinfo/America/New_York:/etc/localtime:ro 
+-p 8080:5000 -p 8000:8000 --restart=always --label='maintainer=feedback@checkmk.com' 
+--label='org.opencontainers.image.description=Checkmk is a leading tool for Infrastructure & Application Monitoring' 
+--label='org.opencontainers.image.source=https://github.com/tribe29/checkmk' 
+--label='org.opencontainers.image.title=Checkmk' 
+--label='org.opencontainers.image.url=https://checkmk.com/' 
+--label='org.opencontainers.image.vendor=tribe29 GmbH' 
+--label='org.opencontainers.image.version=2.1.0p16' 
+--runtime=runc -t -d checkmk/check-mk-enterprise:2.1.0p16

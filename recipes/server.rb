@@ -14,7 +14,8 @@ yum_repository 'almalinux-powertools' do
 end if platform?('almalinux')
 
 package %w(epel-release)
-package %w(xinetd openssl httpie graphviz-gd)
+package %w(openssl httpie graphviz-gd)
+# package %w(xinetd openssl httpie graphviz-gd)
 
 # Download the check_mk raw server package file
 remote_file "#{Chef::Config[:file_cache_path]}/#{node['cmk']['server_rpm']}" do
